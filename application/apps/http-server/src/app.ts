@@ -1,9 +1,10 @@
 import express from "express";
-import { router } from "./routes";
-import { adminRoutes } from "./routes/admin.routes";
-import { spaceRoutes } from "./routes/space.routes";
+import client from "@repo/db/client";
 
+const app = express();
 
-app.use('/api/v1', router);
+import router from "./routes";
+
+app.use("/api/v1", router);
 
 export default app;
