@@ -1,17 +1,28 @@
 import { Router } from "express";
+import {
+  addElementToSpace,
+  createSpace,
+  deleteElementFromSpace,
+  deleteSpace,
+  getAllSpaces,
+  getSpaceById,
+} from "../controllers/space.controller";
+import { userMiddleware } from "../middleware/user";
 
 const spaceRouter = Router();
 
-spaceRouter.route("/").post();
+spaceRouter.use(userMiddleware);
 
-spaceRouter.route("/:spaceId").delete();
+spaceRouter.route("/").post(createSpace);
 
-spaceRouter.route("/all").get();
+spaceRouter.route("/:spaceId").delete(deleteSpace);
 
-spaceRouter.route("/element").post();
+spaceRouter.route("/all").get(getAllSpaces);
 
-spaceRouter.route("/element").delete();
+spaceRouter.route("/element").post(addElementToSpace);
 
-spaceRouter.route("/:spaceId").get()
+spaceRouter.route("/element").delete(deleteElementFromSpace);
+
+spaceRouter.route("/:spaceId").get(getSpaceById);
 
 export default spaceRouter;
