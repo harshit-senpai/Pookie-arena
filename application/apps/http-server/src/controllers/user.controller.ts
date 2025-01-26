@@ -28,5 +28,26 @@ export const userMetaData = async (req: Request, res: Response) => {
 
 export const userMetaDataBulk = async (req: Request, res: Response) => {
   try {
+    const userIdString = (req.query.ids ?? "[]") as string;
+    const userIds = userIdString.slice(1, userIdString?.length - 2).split(",");
+
+    const metaData = await client.user.findMany({
+      where: {
+        id: {
+          in: userIds,
+        },
+      },
+      select: {
+        avatar: true,
+        id: true,
+      },
+    });
+
+    res.json({
+      avatars: (await metaData).map((m) => ({
+        userId: m,
+        avatarId: m.avatar?.imageUrl
+      }) )
+    })
   } catch (error) {}
 };
