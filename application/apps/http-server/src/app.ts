@@ -1,9 +1,9 @@
 import express from "express";
-import client from "@repo/db/client";
+import router from "./routes";
 
 const app = express();
 
-import router from "./routes";
+app.use(express.json());
 
 app.use("/api/v1", router);
 

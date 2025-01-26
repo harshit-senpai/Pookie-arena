@@ -2,15 +2,12 @@ import { Router } from "express";
 import adminRouter from "./admin.routes";
 import spaceRouter from "./space.routes";
 import userRouter from "./user.routes";
+import { signin, Signup } from "../controllers/auth.controller";
 export const router = Router();
 
-router.get("/signup", async (req, res) => {
-  res.json("Sign Up");
-});
+router.route("/signup").post(Signup);
 
-router.get("/signin", async (req, res) => {
-  res.json("Sign In");
-});
+router.route("/signin").post(signin);
 
 router.use("/admin", adminRouter);
 router.use("/space", spaceRouter);
