@@ -29,9 +29,11 @@ export const userMiddleware = (
       role: string;
       userId: string;
     };
+    console.log(decoded);
     req.userId = decoded.userId;
     next();
   } catch (error) {
+    console.log("[USER_MIDDLEWARE_ERROR]: ", error);
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
