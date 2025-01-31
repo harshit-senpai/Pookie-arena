@@ -45,7 +45,7 @@ export const AppSidebar = () => {
               <SidebarMenuButton
                 tooltip={item.title}
                 onClick={() => router.push(item.url)}
-                className={`${pathname === item.url ? "bg-blue-500 text-sidebar-accent hover:bg-blue-500 hover:text-sidebar-accent" : ""}`}
+                className={`${pathname === item.url ? "bg-blue-500 text-sidebar-accent dark:text-primary hover:bg-blue-500 hover:text-sidebar-accent" : ""}`}
               >
                 <item.icon className="h-5 w-5" />
                 <span className="ml-2">{item.title}</span>

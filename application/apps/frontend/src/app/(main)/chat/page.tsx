@@ -21,7 +21,7 @@ export default function ChatPage() {
                 <AvatarImage src="./bella.svg" />
                 <AvatarFallback>BK</AvatarFallback>
               </Avatar>
-              <p className="text-md font-medium text-center text-gray-700">
+              <p className="text-md font-medium text-center dark:text-primary text-gray-700">
                 Bella
               </p>
               <p className="text-sm font-normal text-center text-muted-foreground">
@@ -32,15 +32,15 @@ export default function ChatPage() {
         </div>
         <div className="max-w-xl mx-auto px-2 w-full relative z-10 pb-3">
           <Input
-            className="w-full border-gray-300 rounded-full h-12 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="w-full border-gray-300 rounded-full h-12 focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent dark:border-zinc-600"
             placeholder="Let's Talk"
           />
           <Button
-            className="absolute right-3 top-6 -translate-y-1/2 border border-border rounded-full bg-muted hover:bg-muted-foreground/20"
+            className="absolute right-3 top-6 -translate-y-1/2 border border-border rounded-full bg-blue-500 hover:bg-muted-foreground/20 dark:bg-white"
             variant={"ghost"}
             size={"icon"}
           >
-            <Send className="w-6 h-6 text-gray-600" />
+            <Send className="w-6 h-6 dark:text-gray-600 text-white" />
           </Button>
         </div>
         <DropdownMenu>
@@ -50,12 +50,14 @@ export default function ChatPage() {
               variant={"ghost"}
               className="absolute right-3 top-6 -translate-y-1/2 focus-visible:ring-0 focus-visible:ring-offset-0"
             >
-              <Menu className="w-6 h-6 text-gray-600" />
+              <Menu className="w-6 h-6 text-gray-600 dark:text-zinc-200" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="bg-sidebar">
             <DropdownMenuItem>
-              <Button variant={"ghost"} size={"sm"}>Wallpaper</Button>
+              <Button variant={"ghost"} size={"sm"}>
+                Wallpaper
+              </Button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
