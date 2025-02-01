@@ -9,6 +9,17 @@ body,
   width: 100%;
 }
 
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+}
+
 .clip-custom-rectangle {
   clip-path: polygon(
     0% 20%,
