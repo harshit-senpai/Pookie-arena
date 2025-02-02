@@ -1,3 +1,9 @@
+import { JwtPayload } from "jsonwebtoken";
+
+export interface AuthUser extends JwtPayload {
+  id: string;
+}
+
 export interface Personality {
   id: string;
   name: string;

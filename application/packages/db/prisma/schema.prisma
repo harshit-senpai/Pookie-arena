@@ -13,6 +13,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ChatMessage {
+  id            String   @id @default(cuid())
+  encryptedText String
+  iv            String
+  role          String
+  personalityId String
+  userId        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([personalityId])
+}
+
 model User {
   id       String  @id @unique @default(cuid())
   username String  @unique
