@@ -23,4 +23,6 @@ export function useAuth() {
     }
     fetchUser();
   }, []);
+
+  return { user, isLoading };
 }

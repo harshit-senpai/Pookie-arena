@@ -1,40 +1,46 @@
+import { NextFunction, Request, Response } from "express";
+import { getCurrentUser } from "../utils/currentUser";
+
+type UserPayload = {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  personalityType?: string | null;
+  createdAt: Date;
+};
+
 declare global {
   namespace Express {
-    export interface Request {
-      role?: "admin" | "user";
-      userId?: string;
+    interface Request {
+      user?: UserPayload; // Use custom type instead of Prisma client
     }
   }
 }
 
-import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config";
-
-export const userMiddleware = (
+export async function requireUser(
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  const header = req.headers.authorization;
-  const token = header?.split(" ")[1];
-
-  if (!token) {
-    res.status(403).json({ message: "Unauthorized" });
-    return;
-  }
-
+): Promise<void> {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as {
-      role: string;
-      userId: string;
-    };
-    console.log(decoded);
-    req.userId = decoded.userId;
+    const user = await getCurrentUser(req);
+
+    console.log(user);
+
+    if (!user) {
+      res.status(401).json({
+        message: "Unauthorized - Please login",
+      });
+      return;
+    }
+
+    req.userId = user.id;  
     next();
   } catch (error) {
-    console.log("[USER_MIDDLEWARE_ERROR]: ", error);
-    res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({
+      message: "Unauthorized",
+    });
     return;
   }
-};
+}

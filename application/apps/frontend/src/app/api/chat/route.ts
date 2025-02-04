@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { Message, streamText } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { personalities } from "@/types";
+import { AuthUser, personalities } from "@/types";
+import { getUser } from "@/lib/auth";
+import client from "@repo/db";
 
 const google = createGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_API_KEY!,
+  apiKey: "",
 });
 
 const model = google.chat("gemini-1.5-flash");
@@ -17,6 +19,19 @@ const generationConfig = {
 
 export async function POST(req: Request) {
   try {
+    const auth = (await getUser()) as AuthUser | null;
+
+    const userPersonality = await client.userPersonality.findUnique({
+      where: { userId: auth?.id },
+      select: {
+        extraversion: true,
+        openness: true,
+        agreeableness: true,
+        conscientiousness: true,
+        neuroticism: true,
+      },
+    });
+
     const reqBody = await req.json();
 
     const personalityId = reqBody.personalityId;
@@ -55,8 +70,15 @@ export async function POST(req: Request) {
     }
 
     const formattedPrompt = `
-${personality.systemPrompt}
-
+    You are a ${personality.name} companion. 
+    Your personality traits: ${personality.description}.
+    You are talking to a user with the following personality traits:
+      - Extraversion: ${userPersonality?.extraversion}%
+      - Openness: ${userPersonality?.openness}%
+      - Agreeableness: ${userPersonality?.agreeableness}%
+      - Conscientiousness: ${userPersonality?.conscientiousness}%
+      - Neuroticism: ${userPersonality?.neuroticism}%
+      Adjust your communication style accordingly.
 Previous conversation:
 ${messages
   .slice(-4)

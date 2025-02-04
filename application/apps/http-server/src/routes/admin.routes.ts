@@ -1,22 +1,22 @@
-import { Router } from "express";
-import { adminMiddleware } from "../middleware/admin";
-import {
-  createAvatar,
-  createElement,
-  createMap,
-  updateElement,
-} from "../controllers/admin.controller";
+// import { Router } from "express";
+// import { adminMiddleware } from "../middleware/admin";
+// import {
+//   createAvatar,
+//   createElement,
+//   createMap,
+//   updateElement,
+// } from "../controllers/admin.controller";
 
-const adminRouter = Router();
+// const adminRouter = Router();
 
-adminRouter.use(adminMiddleware);
+// adminRouter.use(adminMiddleware);
 
-adminRouter.route("/element").post(createElement);
+// adminRouter.route("/element").post(createElement);
 
-adminRouter.route("/element/:elementId").put(updateElement);
+// adminRouter.route("/element/:elementId").put(updateElement);
 
-adminRouter.route("/avatar").post(createAvatar);
+// adminRouter.route("/avatar").post(createAvatar);
 
-adminRouter.route("/map").post(createMap);
+// adminRouter.route("/map").post(createMap);
 
-export default adminRouter;
+// export default adminRouter;

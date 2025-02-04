@@ -22,6 +22,7 @@ export async function GET() {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
+      credentials: "include",
       method: "POST",
       body: JSON.stringify({ userId: auth.id }),
     });

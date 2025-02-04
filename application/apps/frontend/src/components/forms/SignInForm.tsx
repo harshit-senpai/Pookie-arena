@@ -41,7 +41,7 @@ export default function SignInForm() {
           description: "Signed In Successfully!",
         });
         form.reset();
-        router.push("");
+        router.push("/chat");
       } else {
         toast({
           variant: "destructive",
@@ -125,7 +125,7 @@ export default function SignInForm() {
                   className="w-full flex"
                   disabled={isSubmitting || !isValid || isLoading}
                 >
-                  Sign Up
+                  Sign In
                   {isLoading && (
                     <Loader2 className="ml-2 h-4 w-4 animate-spin" />
                   )}

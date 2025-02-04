@@ -35,14 +35,15 @@ export default function SignUpForm() {
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
     try {
       setIsLoading(true);
+      console.log(values);
       const response = await apiClient.signUp({ data: values });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast({
           description: "Signed Up Successfully!",
         });
         form.reset();
-        router.push("");
+        router.push("/avatars");
       } else {
         toast({
           variant: "destructive",
