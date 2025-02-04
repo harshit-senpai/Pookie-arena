@@ -20,7 +20,6 @@ const generationConfig = {
 export async function POST(req: Request) {
   try {
     const auth = (await getUser()) as AuthUser | null;
-
     const userPersonality = await client.userPersonality.findUnique({
       where: { userId: auth?.id },
       select: {
@@ -33,9 +32,7 @@ export async function POST(req: Request) {
     });
 
     const reqBody = await req.json();
-
     const personalityId = reqBody.personalityId;
-
     const messages: Message[] = reqBody.messages;
 
     if (!messages || !personalityId) {
@@ -46,7 +43,6 @@ export async function POST(req: Request) {
     }
 
     const personality = personalities.find((p) => p.id === personalityId);
-
     if (!personality) {
       return NextResponse.json(
         { error: "Personality not found" },
@@ -61,12 +57,22 @@ export async function POST(req: Request) {
     if (
       crisisKeywords.some((keyword) => lastMessageContent.includes(keyword))
     ) {
-      return NextResponse.json(
+      // Crisis response as a streaming text response
+
+      const crisisMessage =
         "I'm deeply concerned about your safety. Please contact:\n\n" +
-          "1. National Suicide Prevention Lifeline: 1-800-273-8255 (US)\n" +
-          "2. Crisis Text Line: Text HOME to 741741 (US)\n\n" +
-          "Would you like me to help you find local resources?"
-      );
+        "1. National Suicide Prevention Lifeline: 1-800-273-8255 (US)\n" +
+        "2. Crisis Text Line: Text HOME to 741741 (US)\n\n" +
+        "Would you like me to help you find local resources?";
+
+      const crisisStream = streamText({
+        model,
+        prompt: `SYSTEM: "Do not do anything and just send":  ${crisisMessage}` ,
+        ...generationConfig,
+      });
+
+      return crisisStream.toDataStreamResponse();
+      // Send message as single chunk to prevent model interference
     }
 
     const formattedPrompt = `
@@ -84,7 +90,6 @@ ${messages
   .slice(-4)
   .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
   .join("\n")}
-
 Current request: ${messages[messages.length - 1]?.content}
 `;
 

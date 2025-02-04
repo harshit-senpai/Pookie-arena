@@ -12,26 +12,45 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 export default function ChatPage() {
   const [selectedPersonality, setSelectedPersonality] = useState<Personality>(
     personalities[0]
   );
+  const [showCrisisOptions, setShowCrisisOptions] = useState(false);
+  const router = useRouter();
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({
-      api: "/api/chat",
-      body: {
-        personalityId: selectedPersonality.id,
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    setMessages,
+  } = useChat({
+    api: "/api/chat",
+    body: {
+      personalityId: selectedPersonality.id,
+    },
+    initialMessages: [
+      {
+        id: "welcome",
+        content: `${selectedPersonality.name}: ${selectedPersonality.description}`,
+        role: "assistant",
       },
-      initialMessages: [
-        {
-          id: "welcome",
-          content: `${selectedPersonality.name}: ${selectedPersonality.description}`,
-          role: "assistant",
-        },
-      ],
-    });
+    ],
+    onFinish: (message) => {
+      if (message.content.includes('deeply concerned about your safety')) {
+        setShowCrisisOptions(true);
+      }
+    }
+  });
+
+  const handleCrisisResponse = () => {
+    router.push("/local-resources");
+    setShowCrisisOptions(false);
+  };
 
   console.log(messages);
 
@@ -100,7 +119,9 @@ export default function ChatPage() {
                         : "bg-green-500 rounded-tl-none text-white"
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm whitespace-pre-wrap">
+                      {message.content}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -149,6 +170,20 @@ export default function ChatPage() {
             </Button>
           </div>
         </form>
+
+        {showCrisisOptions && (
+          <div className="max-w-xl mx-auto w-full px-4 mb-4">
+            <div className="bg-red-100 p-4 rounded-lg text-red-900">
+              <p className="font-semibold mb-2">Need immediate help?</p>
+              <Button
+                onClick={handleCrisisResponse}
+                className="w-full bg-red-600 hover:bg-red-700 text-white"
+              >
+                Show Local Resources
+              </Button>
+            </div>
+          </div>
+        )}
       </main>
     </section>
   );
