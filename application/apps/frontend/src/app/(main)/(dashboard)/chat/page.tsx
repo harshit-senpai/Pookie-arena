@@ -24,6 +24,10 @@ export default function ChatPage() {
   const [showCrisisOptions, setShowCrisisOptions] = useState(false);
   const router = useRouter();
 
+  const [selectedBackground, setSelectedBackground] = useState<string | null>(
+    null
+  );
+
   const handleMusicToggle = () => {
     if (!isPlaying) {
       // Stop any existing music
@@ -45,7 +49,6 @@ export default function ChatPage() {
     }
   };
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       soundInstance.current?.stop();
@@ -86,7 +89,14 @@ export default function ChatPage() {
   console.log(messages);
 
   return (
-    <section className="h-[calc(100vh-9rem)]">
+    <section
+      className="h-[calc(100vh-9rem)] rounded-md"
+      style={{
+        backgroundImage: `url(${selectedBackground})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <main className="flex flex-col mt-2 h-full overflow-y-auto relative">
         {/* Personality Selector */}
         <div className="max-w-xl mx-auto w-full lg:pt-6 px-4">
@@ -179,7 +189,7 @@ export default function ChatPage() {
             <Input
               value={input}
               onChange={handleInputChange}
-              className="w-full rounded-full h-12 pr-16 shadow-lg focus-visible:ring-offset-0 focus-visible:ring-0 bg-zinc-800"
+              className="w-full rounded-full h-12 pr-16 shadow-md focus-visible:ring-offset-0 focus-visible:ring-0 dark:bg-zinc-800"
               placeholder="Share your thoughts..."
             />
             <Button
@@ -233,9 +243,63 @@ export default function ChatPage() {
             <Button variant={"ghost"} size={"icon"} className="rounded-full">
               <Phone />
             </Button>
-            <Button variant={"ghost"} size={"icon"} className="rounded-full">
-              <Menu />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="rounded-full"
+                >
+                  <Menu />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-96 h-auto bg-sidebar">
+                <div className="grid grid-cols-2 gap-2 p-2">
+                  <div
+                    className="aspect-video bg-gray-500 rounded-md cursor-pointer"
+                    style={{
+                      backgroundImage: "url('/wallpaper-1.jpg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                    onClick={() => setSelectedBackground("/wallpaper-1.jpg")}
+                  ></div>
+                  <div
+                    className="aspect-video bg-gray-500 rounded-md cursor-pointer"
+                    style={{
+                      backgroundImage: "url('/wallpaper-2.jpg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                    onClick={() => setSelectedBackground("/wallpaper-2.jpg")}
+                  ></div>
+                  <div
+                    className="aspect-video bg-gray-500 rounded-md cursor-pointer"
+                    style={{
+                      backgroundImage: "url('/wallpaper-3.jpg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                    onClick={() => setSelectedBackground("/wallpaper-3.jpg")}
+                  ></div>
+                  <div
+                    className="aspect-video bg-gray-500 rounded-md cursor-pointer"
+                    style={{
+                      backgroundImage: "url('/wallpaper-4.jpg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                    onClick={() => setSelectedBackground("/wallpaper-4.jpg")}
+                  ></div>
+                </div>
+                <button
+                  className="text-sm underline"
+                  onClick={() => setSelectedBackground("")}
+                >
+                  No wallpaper
+                </button>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </main>
