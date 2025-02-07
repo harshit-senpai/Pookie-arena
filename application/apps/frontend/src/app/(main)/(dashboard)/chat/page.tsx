@@ -1,10 +1,10 @@
 "use client";
 import { useChat } from "ai/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send } from "lucide-react";
+import { Menu, Phone, Play, Send, Pause } from "lucide-react";
 import { personalities, Personality } from "@/types";
 import {
   DropdownMenu,
@@ -12,14 +12,45 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Howl } from "howler";
 import { useRouter } from "next/navigation";
 
 export default function ChatPage() {
   const [selectedPersonality, setSelectedPersonality] = useState<Personality>(
     personalities[0]
   );
+  const [isPlaying, setIsPlaying] = useState(false);
+  const soundInstance = useRef<Howl | null>(null);
   const [showCrisisOptions, setShowCrisisOptions] = useState(false);
   const router = useRouter();
+
+  const handleMusicToggle = () => {
+    if (!isPlaying) {
+      // Stop any existing music
+      soundInstance.current?.stop();
+
+      // Create new Howl instance
+      soundInstance.current = new Howl({
+        src: [selectedPersonality.musicTrack],
+        html5: true,
+        volume: 0.3,
+        onend: () => setIsPlaying(false),
+      });
+
+      soundInstance.current.play();
+      setIsPlaying(true);
+    } else {
+      soundInstance.current?.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      soundInstance.current?.stop();
+    };
+  }, []);
 
   const {
     messages,
@@ -41,10 +72,10 @@ export default function ChatPage() {
       },
     ],
     onFinish: (message) => {
-      if (message.content.includes('deeply concerned about your safety')) {
+      if (message.content.includes("deeply concerned about your safety")) {
         setShowCrisisOptions(true);
       }
-    }
+    },
   });
 
   const handleCrisisResponse = () => {
@@ -184,6 +215,29 @@ export default function ChatPage() {
             </div>
           </div>
         )}
+
+        <div className="absolute top-0 xl:right-[300px] right-10 gap-4">
+          <div className="flex items-center">
+            <Button
+              onClick={handleMusicToggle}
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+            >
+              {isPlaying ? (
+                <Pause className="h-6 w-6" />
+              ) : (
+                <Play className="h-6 w-6" />
+              )}
+            </Button>
+            <Button variant={"ghost"} size={"icon"} className="rounded-full">
+              <Phone />
+            </Button>
+            <Button variant={"ghost"} size={"icon"} className="rounded-full">
+              <Menu />
+            </Button>
+          </div>
+        </div>
       </main>
     </section>
   );
