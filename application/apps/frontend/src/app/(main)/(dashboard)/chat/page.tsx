@@ -148,13 +148,13 @@ export default function ChatPage() {
             <Input
               value={input}
               onChange={handleInputChange}
-              className="w-full rounded-full h-12 pr-16 shadow-lg focus-visible:ring-offset-0 focus-visible:ring-0 "
+              className="w-full rounded-full h-12 pr-16 shadow-lg focus-visible:ring-offset-0 focus-visible:ring-0 bg-zinc-800"
               placeholder="Share your thoughts..."
             />
             <Button
               type="submit"
               disabled={isLoading}
-              className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full size-10 bg-blue-500 hover:bg-blue-600 ${
+              className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-full size-8 bg-blue-500 hover:bg-blue-600 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >

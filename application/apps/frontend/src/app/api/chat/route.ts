@@ -67,7 +67,7 @@ export async function POST(req: Request) {
 
       const crisisStream = streamText({
         model,
-        prompt: `SYSTEM: "Do not do anything and just send":  ${crisisMessage}` ,
+        prompt: `SYSTEM: "Do not do anything and just send":  ${crisisMessage}`,
         ...generationConfig,
       });
 

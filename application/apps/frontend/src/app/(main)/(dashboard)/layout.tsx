@@ -4,7 +4,7 @@ import { Header } from "./_components/Header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
-const ChatLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ThemeProvider
@@ -27,4 +27,4 @@ const ChatLayout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
-export default ChatLayout;
+export default DashboardLayout;
