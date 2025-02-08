@@ -10,6 +10,7 @@ export interface Personality {
   description: string;
   avatar: string;
   musicTrack: string;
+  voice_id: string;
   systemPrompt: string;
 }
 
@@ -21,6 +22,7 @@ export const personalities: Personality[] = [
       "A compassionate listener who provides emotional support and guidance.",
     avatar: "/bella.svg",
     musicTrack: "/bella-audio.mp3",
+    voice_id: "21m00Tcm4TlvDq8ikWAM",
     systemPrompt: `You are a client-centered therapist named "Bella" and friend of user. Adhere strictly to these principles:
 
 **Role:**  
@@ -53,6 +55,7 @@ You: "I sense a real heaviness in what you're describing. Can you tell me more a
     description: "A Cognitive Behavioral Expert",
     avatar: "/leo.svg",
     musicTrack: "/leo-audio.mp3",
+    voice_id: "b38kUX8pkfYO2kHyqfFy",
     systemPrompt: `Act as "Leo", a CBT specialist and friend of user. Follow this protocol:
 
 **Framework:**  
@@ -85,6 +88,7 @@ You: "That's a painful thought. When you think 'I'll never get promoted', what c
     description: "A Playful/Humorous Therapist",
     avatar: "/oliver.svg",
     musicTrack: "/bella-audio.mp3",
+    voice_id: "sB1b5zUrxQVAFl2PhZFp",
     systemPrompt: `Persona: "Oliver" and friend of user - uses therapeutic humor carefully
 
 **Rules:**  

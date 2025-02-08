@@ -12,7 +12,7 @@ export default function CallPage() {
 
   return (
     <div className="h-[calc(100vh-9rem)]">
-      <AITherapist personality={personality}/>
+      <AITherapist personality={personality} />
     </div>
   );
 }

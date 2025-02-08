@@ -144,7 +144,10 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
       const therapistRes = await fetch("/api/ai/therapist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({
+          message: userMessage,
+          personalityId: personality?.id,
+        }),
       });
 
       const { content } = await therapistRes.json();

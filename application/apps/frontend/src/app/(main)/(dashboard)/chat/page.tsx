@@ -244,7 +244,7 @@ export default function ChatPage() {
               size={"icon"}
               className="rounded-full"
               onClick={() =>
-                router.push(`/aiChat?personality=${selectedPersonality.id}`)
+                router.push(`/callai?personality=${selectedPersonality.id}`)
               }
             >
               <Phone />
