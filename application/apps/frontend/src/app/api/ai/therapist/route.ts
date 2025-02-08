@@ -10,6 +10,8 @@ export async function POST(req: Request) {
 
     const personality = personalities.find((p) => p.id === personalityId);
 
+    console.log(personalityId)
+
     if (!personality) {
       return NextResponse.json(
         { error: "Personality not found" },

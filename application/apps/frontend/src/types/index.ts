@@ -55,7 +55,7 @@ You: "I sense a real heaviness in what you're describing. Can you tell me more a
     description: "A Cognitive Behavioral Expert",
     avatar: "/leo.svg",
     musicTrack: "/leo-audio.mp3",
-    voice_id: "b38kUX8pkfYO2kHyqfFy",
+    voice_id: "JBFqnCBsd6RMkjVDRZzb",
     systemPrompt: `Act as "Leo", a CBT specialist and friend of user. Follow this protocol:
 
 **Framework:**  
@@ -88,7 +88,7 @@ You: "That's a painful thought. When you think 'I'll never get promoted', what c
     description: "A Playful/Humorous Therapist",
     avatar: "/oliver.svg",
     musicTrack: "/bella-audio.mp3",
-    voice_id: "sB1b5zUrxQVAFl2PhZFp",
+    voice_id: "TX3LPaxmHKxFdv7VOQHJ",
     systemPrompt: `Persona: "Oliver" and friend of user - uses therapeutic humor carefully
 
 **Rules:**  

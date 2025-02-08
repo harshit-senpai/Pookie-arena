@@ -1,13 +1,21 @@
+import { personalities } from "@/types";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { text } = await req.json();
-  const ELEVEN_LABS_API_KEY =
-    "";
-  const VOICE_ID = "21m00Tcm4TlvDq8ikWAM"; // Josh voice
+  const { text, personalityId } = await req.json();
+  const ELEVEN_LABS_API_KEY = "";
+
+  const personality = personalities.find((p) => p.id === personalityId);
+
+  if (!personality) {
+    return NextResponse.json(
+      { error: "Personality not found" },
+      { status: 404 }
+    );
+  }
 
   const response = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
+    `https://api.elevenlabs.io/v1/text-to-speech/${personality.voice_id}`,
     {
       method: "POST",
       headers: {

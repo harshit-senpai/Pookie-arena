@@ -33,8 +33,7 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
 
   const startSession = async () => {
     setIsSessionStarted(true);
-    const greeting =
-      "Hello, I'm your AI therapist. What would you like to talk about today?";
+    const greeting = `Hello, I'm ${personality?.name} your AI Homie. What would you like to talk about today?`;
     setMessages([{ role: "ai", content: greeting }]);
     await playTTS(greeting);
   };
@@ -68,7 +67,7 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
       for (let i = 0; i < bufferLength; i++) {
         const barHeight = (dataArray[i] / 255) * canvas.height;
 
-        ctx.fillStyle = "#FFB800";
+        ctx.fillStyle = "#567ee5";
         ctx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
         x += barWidth;
       }
@@ -167,7 +166,7 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
       const res = await fetch("/api/tts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, personalityId: personality?.id }),
       });
 
       const audioBlob = await res.blob();
@@ -184,7 +183,7 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
         <CardContent className="py-4">
           {!isSessionStarted ? (
             <div className="flex flex-col items-center space-y-10">
-              <div className="h-48 w-48 rounded-full bg-[#FFB800]">
+              <div className="h-48 w-48 rounded-full bg-blue-500">
                 {personality?.avatar && (
                   <img
                     src={personality.avatar}
@@ -203,12 +202,24 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
           ) : (
             <div className="flex flex-col items-center space-y-8">
               {isRecording && (
-                <p className="text-gray-600 text-sm">listening...</p>
+                <p className="text-gray-600 text-sm">
+                  {personality?.name} listening...
+                </p>
               )}
               {isAIResponding && (
-                <p className="text-gray-600 text-sm">AI is responding...</p>
+                <p className="text-gray-600 text-sm">
+                  {personality?.name} is responding...
+                </p>
               )}
-              <div className="h-48 w-48 rounded-full bg-[#FFB800]" />
+              <div className="h-48 w-48 rounded-full bg-blue-500">
+                {personality?.avatar && (
+                  <img
+                    src={personality.avatar}
+                    alt="AI Therapist"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                )}
+              </div>
               <div
                 className={`w-full h-24 flex items-center justify-center ${
                   isRecording ? "block" : "hidden"
@@ -237,7 +248,7 @@ export const AITherapist = ({ personality }: { personality?: Personality }) => {
                 variant="outline"
                 className={cn(
                   "flex items-center gap-2 rounded-full transition-colors",
-                  isRecording && "border-[#FFB800] border-2"
+                  isRecording && "border-blue-500 border-2"
                 )}
               >
                 {isRecording ? <Square size={20} /> : <Mic size={20} />}

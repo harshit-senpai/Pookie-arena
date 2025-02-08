@@ -53,7 +53,7 @@ export default function QuizPage() {
         <div className="mb-4">
           <div className="h-2 bg-gray-200 rounded-full">
             <div
-              className="h-2 bg-primary rounded-full transition-all"
+              className="h-2 bg-green-500 rounded-full transition-all"
               style={{
                 width: `${((currentPage * 5) / totalQuestions) * 100}%`,
               }}
@@ -69,6 +69,7 @@ export default function QuizPage() {
               min={0}
               max={5}
               step={0.1}
+              className="bg-blue-500"
               onValueChange={(value) =>
                 setResponses((prev) => ({ ...prev, [question.id]: value[0] }))
               }
@@ -97,7 +98,7 @@ export default function QuizPage() {
           </div>
         ) : (
           <Button
-            className="mt-4"
+            className="mt-4 bg-blue-500"
             onClick={() => setCurrentPage((prev) => prev + 1)}
           >
             Next

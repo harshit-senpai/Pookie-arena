@@ -6,7 +6,7 @@ export const Header = () => {
     <header className="flex items-center gap-2 h-16 rounded-md border border-sidebar-border bg-sidebar p-2 px-4">
       <div className="flex items-center justify-between w-full">
         <h2 className="text-lg font-medium text-muted-foreground dark:text-white">
-          AI Homie
+          Emora
         </h2>
         <div className="flex items-center gap-2">
           <ModeToggle />
