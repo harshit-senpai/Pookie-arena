@@ -30,7 +30,6 @@ export default function ChatPage() {
 
   const handleMusicToggle = () => {
     if (!isPlaying) {
-      // Stop any existing music
       soundInstance.current?.stop();
 
       // Create new Howl instance
@@ -240,7 +239,14 @@ export default function ChatPage() {
                 <Play className="h-6 w-6" />
               )}
             </Button>
-            <Button variant={"ghost"} size={"icon"} className="rounded-full">
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              className="rounded-full"
+              onClick={() =>
+                router.push(`/aiChat?personality=${selectedPersonality.id}`)
+              }
+            >
               <Phone />
             </Button>
             <DropdownMenu>

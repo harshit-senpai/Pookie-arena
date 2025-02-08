@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Mic, Square, StopCircle, X } from "lucide-react";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { cn } from "@/lib/utils";
+import { Personality } from "@/types";
 
-export const AITherapist = () => {
+export const AITherapist = ({ personality }: { personality?: Personality }) => {
   const [isSessionStarted, setIsSessionStarted] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [messages, setMessages] = useState<
@@ -180,7 +181,15 @@ export const AITherapist = () => {
         <CardContent className="py-4">
           {!isSessionStarted ? (
             <div className="flex flex-col items-center space-y-10">
-              <div className="h-48 w-48 rounded-full bg-[#FFB800]" />
+              <div className="h-48 w-48 rounded-full bg-[#FFB800]">
+                {personality?.avatar && (
+                  <img
+                    src={personality.avatar}
+                    alt="AI Therapist"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                )}
+              </div>
               <Button
                 onClick={startSession}
                 className="max-w-xl mx-auto bg-blue-500 hover:bg-blue-500/90 text-white"
