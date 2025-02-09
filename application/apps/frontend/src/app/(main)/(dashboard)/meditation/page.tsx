@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function meditationPage() {
   return (
@@ -9,45 +10,51 @@ export default function meditationPage() {
       </p>
       <div className="mt-20 max-w-5xl mx-auto flex items-center justify-center">
         <div className="grid lg:grid-cols-3 place-content-center gap-10">
-          <div>
-            <Card
-              className="size-36 cursor-pointer"
-              style={{
-                backgroundImage: "url('/assets/meditation-1.png')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></Card>
-            <p className="text-sm text-center mt-2 text-muted-foreground">
-              Instrumental
-            </p>
-          </div>
-          <div>
-            <Card
-              className="size-36 cursor-pointer"
-              style={{
-                backgroundImage: "url('/assets/meditation-2.png')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></Card>
-            <p className="text-sm text-center mt-2 text-muted-foreground">
-              Nature
-            </p>
-          </div>
-          <div>
-            <Card
-              className="size-36 cursor-pointer p-0"
-              style={{
-                backgroundImage: "url('/assets/meditation-3.png')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></Card>
-            <p className="text-sm text-center mt-2 text-muted-foreground">
-              Guided
-            </p>
-          </div>
+          <Link href="/meditation/instrumental">
+            <div>
+              <Card
+                className="size-36 cursor-pointer"
+                style={{
+                  backgroundImage: "url('/assets/meditation-1.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></Card>
+              <p className="text-sm text-center mt-2 text-muted-foreground">
+                Instrumental
+              </p>
+            </div>
+          </Link>
+          <Link href="/meditation/natural">
+            <div>
+              <Card
+                className="size-36 cursor-pointer"
+                style={{
+                  backgroundImage: "url('/assets/meditation-2.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></Card>
+              <p className="text-sm text-center mt-2 text-muted-foreground">
+                Nature
+              </p>
+            </div>
+          </Link>
+          <Link href="/meditation/guided">
+            <div>
+              <Card
+                className="size-36 cursor-pointer p-0"
+                style={{
+                  backgroundImage: "url('/assets/meditation-3.png')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></Card>
+              <p className="text-sm text-center mt-2 text-muted-foreground">
+                Guided
+              </p>
+            </div>
+          </Link>
         </div>
       </div>
     </section>

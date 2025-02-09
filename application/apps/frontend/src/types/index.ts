@@ -14,6 +14,20 @@ export interface Personality {
   systemPrompt: string;
 }
 
+export interface Song {
+  id: string;
+  thumbnail: string;
+  music: string;
+  name: string;
+  duration: string;
+}
+
+export interface MusicPlaylist {
+  playlist: string;
+  thumbnail: string;
+  songs: Song[];
+}
+
 export const personalities: Personality[] = [
   {
     id: "Compassionate Listener",
